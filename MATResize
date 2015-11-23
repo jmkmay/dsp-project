@@ -1,22 +1,21 @@
-clear all
-close all
+function [ new_mat ] = MATResize( old_mat, size )
+%MATResize Resizes the vector old_mat to match size
+%   Uses a floor technique... could potentially use a linear/quadratic regression to get a more accurate representation
+%%How many extra entries do we need to add to old_mat?
+extra_entries = size - length(old_mat);
+%%How many entries need to be inserted between each matrix element?
+inserts = floor(extra_entries/length(old_mat));
 
-%%file_n = input('Which file?');
+%%Insert inserts number of vector elements of same value between each
+%%new_mat
 
-%%load('file_n');
+new_mat = zeros(1,size);
 
-fsamp = 8000;
-fcuts = [300 310 340 350];
-mags = [0 1 0];
-devs = [0.001 0.005 0.001];
+for i = 1:length(old_mat)
+    for j = 1:inserts
+        new_mat(i*inserts + j) = old_mat(i);
+    end
+end
 
-[n,Wn,beta,ftype] = kaiserord(fcuts,mags,devs,fsamp);
-n = n + rem(n,2);
-hh = fir1(n,Wn,ftype,kaiser(n+1,beta),'noscale');
-
-[H,f] = freqz(hh,1,1024,fsamp);
-plot(f,abs(H))
-grid
-
-plot(1:80000,MATResize(abs(H),80000))
-
+ 
+end
