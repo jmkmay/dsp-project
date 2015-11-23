@@ -1,0 +1,12 @@
+function [ kfilter,kphase ] = KaiserFilt( fsamp, fcuts ,mags, devs, size )
+%Kaiser Filter for fsamp, fcuts, mags, devs, and size of returned vector
+
+
+[n,Wn,beta,ftype] = kaiserord(fcuts,mags,devs,fsamp);
+n = n + rem(n,2);
+hh = fir1(n,Wn,ftype,kaiser(n+1,beta),'noscale');
+
+[kfilter,kphase] = freqz(hh,1,size,fsamp);
+
+end
+
