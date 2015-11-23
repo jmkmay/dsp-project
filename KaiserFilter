@@ -14,10 +14,10 @@ devs = [0.001 0.005 0.001];
 n = n + rem(n,2);
 hh = fir1(n,Wn,ftype,kaiser(n+1,beta),'noscale');
 
-[H,f] = freqz(hh,1,1024,fsamp);
+[H,f] = freqz(hh,1,80000,fsamp);
 plot(f,abs(H))
 grid
 
-plot(1:80000,MATResize(abs(H),80000))
+%plot(1:80000,MATResize(abs(H),80000))
 
 
