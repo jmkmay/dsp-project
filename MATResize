@@ -1,0 +1,22 @@
+function [ new_mat ] = MATResize( old_mat, size )
+%UNTITLED2 Summary of this function goes here
+%   Detailed explanation goes here
+%%How many extra entries do we need to add to old_mat?
+extra_entries = size - length(old_mat);
+%%How many entries need to be inserted between each matrix element?
+inserts = floor(extra_entries/length(old_mat));
+
+%%Insert inserts number of vector elements of same value between each
+%%new_mat
+
+new_mat = zeros(1,size);
+
+for i = 1:length(old_mat)
+    for j = 1:inserts
+        new_mat(i*inserts + j) = old_mat(i);
+    end
+end
+
+ 
+end
+
